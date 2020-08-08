@@ -2,6 +2,9 @@
 
 weight is a highly customizable multi OS command line application that puts enough load on the CPU to meet the user target.
 
+[![Build Status](https://github.com/spring1843/weight/workflows/Go/badge.svg)](https://github.com/spring1843/weight/actions)
+[![Build Status](https://goreportcard.com/badge/github.com/spring1843/weight)](https://goreportcard.com/report/github.com/spring1843/weight)
+
 ## Examples
 
 `weight cpu -t 90.00` aims to set the CPU to 90% by running fake loads in a strategic manner.
