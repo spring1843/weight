@@ -1,8 +1,6 @@
 # weight
 
-weight is multi OS command line application that tries to set the CPU load of the machine to the given value.
-
-The name comes from the idea that it puts a fake load on the CPU. The project aims to provide similar capabilities for other system resources.
+weight is a highly customizable multi OS command line application that puts enough load on the CPU to meet the user target.
 
 ## Examples
 
@@ -25,33 +23,9 @@ The name comes from the idea that it puts a fake load on the CPU. The project ai
 
 See all available options by running `weight cpu -h`
 
-```ANSI
-Will attempt to reach a target CPU load by managing a number of CPU loaders that make it busy.
-
-Usage:
-  weight cpu [options] [flags]
-
-Flags:
- Will attempt to reach a target CPU load by managing a number of CPU loaders that make it busy.
-
-Usage:
-  weight cpu [options] [flags]
-
-Flags:
-  -c, --cpu-check-delay-duration string   Delay between each CPU load is read and corrective action is taken. Valid values include 2ns, 2µs, 2ms, 2s, ... (default "2s")
-  -d, --do-not-change                     If set to true then the checks for CPU read will be decided but no action will be taken
-  -h, --help                              help for cpu
-  -i, --initial-cpu-loaders int           Number of initial loaders that busy the CPU
-  -n, --loader-increments int             How many loaders to add or remove with each action, the default 0 value means use a smarter strategy rather than a fixed count
-  -l, --loader-sleep-duration string      Duration of sleep before each attempt to busy the CPU. 0 would make each loader use 100% of the CPU and 10s would make each use almost none. Example values include 2ns, 2µs, 2ms, 2s, ... (default "100µs")
-  -q, --quiet                             If set to true, informational logs will be silent
-  -t, --target-cpu-load float32           Float number indicating the desired CPU load. 50.00 indicated %50 (default 50)
-```
-
 ## Installation
 
 ### Build from source
 
 1. Download and install [Go](https://golang.org/dl/). Currently tested Go version in (1.14+).
-2. Run `go get -u github.com/spring1843/weight` to download the source file locally
-3. Run `make build`
+2. Run `go get -u github.com/spring1843/weight`, and you should be able to run the `weight` command otherwise run `make build` in the source directory.
