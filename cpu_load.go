@@ -51,7 +51,8 @@ func (l *loader) start() {
 // startAndDontSleep is like start but does not sleep
 // used to avoid the extra checks
 func (l *loader) startAndDontSleep() {
-	for {}
+	for {
+	}
 }
 
 func (l *loader) end() {
@@ -65,7 +66,7 @@ func addLoaders(n int) {
 	for i := 0; i < n; i++ {
 		loaders = append(loaders, newLoader())
 
-		if flagLoaderSleepDuration == zeroTime && flagLoaderIncrements == 0{
+		if flagLoaderSleepDuration == zeroTime && !flagDoNotChange {
 			go loaders[len(loaders)-1].startAndDontSleep()
 			continue
 		}

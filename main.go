@@ -13,6 +13,7 @@ var (
 	flagCPUCheckDelayDuration string
 	flagInitialCPULoaders     int
 	flagLoaderIncrements      int
+	flagDoNotChange           bool
 
 	cmdRoot = &cobra.Command{
 		Version: version,
@@ -46,6 +47,8 @@ func registerFlags() {
 	cmdCPU.Flags().StringVarP(&flagCPUCheckDelayDuration, "cpu-check-delay-duration", "c", "2s", "Delay between each CPU load is read and corrective action is taken. Valid values include 2ns, 2µs, 2ms, 2s, ...")
 	cmdCPU.Flags().IntVarP(&flagInitialCPULoaders, "initial-cpu-loaders", "i", 0, "Number of initial loaders that busy the CPU")
 	cmdCPU.Flags().IntVarP(&flagLoaderIncrements, "loader-increments", "n", 0, "How many loaders to add or remove with each action, the default 0 value means use a smarter strategy rather than a fixed count")
+	cmdCPU.Flags().BoolVarP(&flagDoNotChange, "do-not-change", "d", false, "If set to true then the checks for CPU read will be decided but no action will be taken")
+
 }
 
 func validateFlags() {
