@@ -49,7 +49,7 @@ func watchCPULoad(cpuReader cpuReader) error {
 // performs that action
 func actOnCPULoad(load float32, loaderLen int) (string, int) {
 	count := flagLoaderIncrements
-	if count == 0 && flagLoaderIncrements != 0{
+	if count == 0 && !flagDoNotChange {
 		count = int(math.Abs(float64(load - flagTargetCPULoad)))
 	}
 
