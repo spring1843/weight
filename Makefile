@@ -39,7 +39,7 @@ clean:
 fix:
 	@go fix $(GOFLAGS) ./...
 
-github_workflow : beautify vet lint
+github_workflow : build beautify vet race lint fix
 
 commit: beautify audit
 	@git add -p .
