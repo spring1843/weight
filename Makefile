@@ -39,10 +39,6 @@ clean:
 fix:
 	@go fix $(GOFLAGS) ./...
 
-get_make_deps:
-	@go get -u golang.org/x/tools/cmd/goimports
-	@go get -u github.com/golang/lint/golint
-
 github_workflow : build beautify vet race lint fix
 
 commit: beautify audit
