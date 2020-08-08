@@ -22,6 +22,9 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
+    - name: Run `make get_make_deps`
+      run: make get_make_deps
+
     - name: Run `make github_workflow`
       run: make github_workflow
 
