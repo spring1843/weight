@@ -51,7 +51,8 @@ func (l *loader) start() {
 // startAndDontSleep is like start but does not sleep
 // used to avoid the extra checks
 func (l *loader) startAndDontSleep() {
-	for {}
+	for {
+	}
 }
 
 func (l *loader) end() {
