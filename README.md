@@ -30,5 +30,7 @@ See all available options by running `weight cpu -h`
 
 ### Build from source
 
-1. Download and install [Go](https://golang.org/dl/). Currently tested Go version in (1.14+).
-2. Run `go get -u github.com/spring1843/weight`, and you should be able to run the `weight` command otherwise run `make build` in the source directory.
+1. Download and install [Go](https://golang.org/dl/) v1.14+
+2. Run `go get -u github.com/spring1843/weight` and you should be able to run the `weight` command
+
+If this fails because of environmental issues you can try running `make build` in the source directory to build the weight binary file.
