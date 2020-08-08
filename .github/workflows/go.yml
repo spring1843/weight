@@ -27,3 +27,8 @@ jobs:
 
     - name: Run `make github_workflow`
       run: make github_workflow
+
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v1.2.1
+      with:
+        version: "v2.2.0"

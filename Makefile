@@ -1,3 +1,4 @@
+SHELL = /bin/sh
 GOFLAGS ?= $(GOFLAGS:)
 
 all: install test
