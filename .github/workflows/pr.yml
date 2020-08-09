@@ -1,4 +1,4 @@
-name: Go
+name: PR
 
 on:
   push:
@@ -32,3 +32,6 @@ jobs:
       uses: golangci/golangci-lint-action@v1.2.1
       with:
         version: "v1.30"
+
+    - name: YAML Lint Action
+      uses: actionshub/yamllint@v1.0.0
