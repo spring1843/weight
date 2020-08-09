@@ -2,9 +2,9 @@ name: PR
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
 
@@ -19,8 +19,11 @@ jobs:
           go-version: ^1.14
         id: go
 
-      - name: get goimports and golint
-        run: go get -u golang.org/x/tools/cmd/goimports && go get -u golang.org/x/lint/golint
+      - name: Get goimports
+        run: go get -u golang.org/x/lint/golint
+
+      - name: Get golint
+        run: go get -u golang.org/x/lint/golint
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
@@ -33,5 +36,5 @@ jobs:
         with:
           version: "v1.30"
 
-      - name: YAML Lint Action
+      - name: YAML Lint
         uses: actionshub/yamllint@v1.0.0
