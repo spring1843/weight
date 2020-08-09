@@ -20,10 +20,10 @@ jobs:
         id: go
 
       - name: Get goimports
-        run: go get -u golang.org/x/lint/golint
+        run: go get golang.org/x/tools/cmd/goimports
 
       - name: Get golint
-        run: go get -u golang.org/x/lint/golint
+        run: go get golang.org/x/lint/golint
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
