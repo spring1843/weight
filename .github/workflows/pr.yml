@@ -13,25 +13,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Set up Go 1.14
-      uses: actions/setup-go@v2
-      with:
-        go-version: ^1.14
-      id: go
+      - name: Set up Go 1.14
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.14
+        id: go
 
-    - name: get goimports and golint
-      run: go get -u golang.org/x/tools/cmd/goimports && go get -u golang.org/x/lint/golint
+      - name: get goimports and golint
+        run: go get -u golang.org/x/tools/cmd/goimports && go get -u golang.org/x/lint/golint
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
 
-    - name: Run `make github_workflow`
-      run: make github_workflow
+      - name: Run `make github_workflow`
+        run: make github_workflow
 
-    - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@v1.2.1
-      with:
-        version: "v1.30"
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v1.2.1
+        with:
+          version: "v1.30"
 
-    - name: YAML Lint Action
-      uses: actionshub/yamllint@v1.0.0
+      - name: YAML Lint Action
+        uses: actionshub/yamllint@v1.0.0
