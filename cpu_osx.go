@@ -7,9 +7,9 @@ import (
 var (
 	osxTopArgs   = []string{"-l", "1", "-n", "0"}
 	osxTopParams = &parseTopOutputParams{
-		keywordCPULoad:    "CPU usage:",
-		keywordBeforeIdle: "sys, ",
-		keywordIdle:       "% idle",
+		cpuLoad:    "CPU usage:",
+		beforeIdle: "sys, ",
+		idle:       "% idle",
 	}
 )
 

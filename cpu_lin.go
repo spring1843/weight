@@ -7,9 +7,9 @@ import (
 var (
 	linuxTopArgs   = []string{"-bn1"}
 	linuxTopParams = &parseTopOutputParams{
-		keywordCPULoad:    "%Cpu(s):",
-		keywordBeforeIdle: "ni,",
-		keywordIdle:       " id",
+		cpuLoad:    "%Cpu(s):",
+		beforeIdle: "ni,",
+		idle:       " id",
 	}
 )
 

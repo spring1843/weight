@@ -19,7 +19,7 @@ type (
 
 	// parseTopOutputParams holds the parameters passed in to parse a top command's output
 	parseTopOutputParams struct {
-		topOutput, keywordCPULoad, keywordBeforeIdle, keywordIdle string
+		topOutput, cpuLoad, beforeIdle, idle string
 	}
 )
 
@@ -65,11 +65,11 @@ func runTopAndParse(args []string, parseParams *parseTopOutputParams) (float32, 
 // some load in both the system and usage percentages  hence it's easier just to parse the idle
 // time and then use it to calculate the busy percentage
 func parseTopOutput(params *parseTopOutputParams) (float32, error) {
-	cpuIndex := strings.Index(params.topOutput, params.keywordCPULoad)
+	cpuIndex := strings.Index(params.topOutput, params.cpuLoad)
 	if cpuIndex == -1 {
-		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.keywordCPULoad)
+		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.cpuLoad)
 	}
-	params.topOutput = params.topOutput[cpuIndex+len(params.keywordCPULoad):]
+	params.topOutput = params.topOutput[cpuIndex+len(params.cpuLoad):]
 
 	newLineIndex := strings.Index(params.topOutput, keyWordNewLine)
 	if newLineIndex == -1 {
@@ -78,15 +78,15 @@ func parseTopOutput(params *parseTopOutputParams) (float32, error) {
 	params.topOutput = params.topOutput[:newLineIndex]
 	cpuOutput := params.topOutput
 
-	sysIndex := strings.Index(params.topOutput, params.keywordBeforeIdle)
+	sysIndex := strings.Index(params.topOutput, params.beforeIdle)
 	if cpuIndex == -1 {
-		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.keywordBeforeIdle)
+		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.beforeIdle)
 	}
-	params.topOutput = params.topOutput[sysIndex+len(params.keywordBeforeIdle):]
+	params.topOutput = params.topOutput[sysIndex+len(params.beforeIdle):]
 
-	idleIndex := strings.Index(params.topOutput, params.keywordIdle)
+	idleIndex := strings.Index(params.topOutput, params.idle)
 	if idleIndex == -1 {
-		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.keywordIdle)
+		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.idle)
 	}
 	params.topOutput = strings.TrimSpace(params.topOutput[:idleIndex])
 
