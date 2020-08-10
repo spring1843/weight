@@ -15,6 +15,8 @@ func newCPUReader() (cpuReader, error) {
 	switch runtime.GOOS {
 	case "darwin":
 		return newOSXReader()
+	case "linux":
+		return newLinuxReader()
 	}
 	return nil, fmt.Errorf("OS %q is not currently supported. No method of finding CPU load", runtime.GOOS)
 }

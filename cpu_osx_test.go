@@ -2,13 +2,13 @@ package main
 
 import "testing"
 
-func TestParseTopCPU(t *testing.T) {
+func TestParseOSXCPU(t *testing.T) {
 	var tests = []struct {
 		input  string
 		output float32
 		err    bool
 	}{
-		{"CPU usage: 11.11% user, 22.22% sys, 60.00% idle", 40.00, false},
+		{"CPU usage: 0.0% user, 33.33% sys, 60.00% idle", 40.00, false},
 		{"CPU usage: 11.11% user, 22.22% sys, 60.00% idle", 40.00, false},
 		{"CPU usage: 11.11% user, 22.22% sys, 6.00% idle", 94.00, false},
 		{"CPU usage: 11.11% user, 22.22% sys, 0.00% idle", 100.00, false},

@@ -14,13 +14,8 @@ type osxReader struct {
 
 const (
 	topCmd         = "top"
-	keywordCPULoad = "CPU usage:"
-	keywordSys     = "sys, "
 	keyWordNewLine = "\n"
-	keywordIdle    = "% idle"
 )
-
-var topArgs = []string{"-l", "1", "-n", "0"}
 
 func newOSXReader() (*osxReader, error) {
 	path, err := exec.LookPath(topCmd)
@@ -34,8 +29,7 @@ func newOSXReader() (*osxReader, error) {
 }
 
 func (o *osxReader) read() (float32, error) {
-	cmd := exec.Command(o.path, topArgs...)
-
+	cmd := exec.Command(o.path, []string{"-l", "1", "-n", "0"}...)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return -1, fmt.Errorf("failed to execute the top command. Error : %w", err)
@@ -49,6 +43,12 @@ func (o *osxReader) read() (float32, error) {
 // some load in both the system and usage percentages  hence it's easier just to parse the idle
 // time and then use it to calculate the busy percentage
 func parseOSXTopOutput(topOutput string) (float32, error) {
+	const (
+		keywordCPULoad = "CPU usage:"
+		keywordSys     = "sys, "
+		keywordIdle    = "% idle"
+	)
+
 	cpuIndex := strings.Index(topOutput, keywordCPULoad)
 	if cpuIndex == -1 {
 		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", keywordCPULoad)
