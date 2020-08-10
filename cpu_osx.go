@@ -6,11 +6,6 @@ import (
 	"os/exec"
 )
 
-// osxReader can read CPU load on OSX
-type osxReader struct {
-	path string
-}
-
 func readOSXCPULoad() (float32, error) {
 	if topPath == "" {
 		return 0, errors.New("empty top path")
