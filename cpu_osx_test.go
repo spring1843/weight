@@ -15,8 +15,10 @@ func TestParseOSXCPU(t *testing.T) {
 		{"CPU usage: 11.11% user, 22.22% sys, 1.5% idle", 98.50, false},
 	}
 
+	parseParams := osxTopParams
 	for i, test := range tests {
-		got, err := parseOSXTopOutput(test.input + "\n")
+		parseParams.topOutput = test.input + "\n"
+		got, err := parseTopOutput(parseParams)
 		if err != nil && !test.err {
 			t.Fatalf("Failed test case #%d. Unexpected error. Error: %s", i, err)
 		}

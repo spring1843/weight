@@ -31,7 +31,7 @@ func runCPU() error {
 // watchCPULoad keeps watching the CPU load, performs adjusting actions and prompts the outcome
 func watchCPULoad(cpuReader cpuReader) error {
 	for {
-		load, err := cpuReader.read()
+		load, err := cpuReader()
 		if err != nil {
 			return fmt.Errorf("failed getting CPU load. Error: %w", err)
 		}

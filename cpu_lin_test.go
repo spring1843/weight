@@ -17,8 +17,10 @@ func TestParseLinuxCPU(t *testing.T) {
 		{"%Cpu(s):  4.3 us, 13.0 sy,  0.0 ni, 82.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st", 17.50, false},
 	}
 
+	parseParams := linuxTopParams
 	for i, test := range tests {
-		got, err := parseLinuxTopOutput(test.input + "\n")
+		parseParams.topOutput = test.input + "\n"
+		got, err := parseTopOutput(parseParams)
 		if err != nil && !test.err {
 			t.Fatalf("Failed test case #%d. Unexpected error. Error: %s", i, err)
 		}
