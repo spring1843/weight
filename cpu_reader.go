@@ -50,6 +50,16 @@ func loadTopPath() (string, error) {
 	return topPath, nil
 }
 
+func runTopAndParse(args []string, parseParams *parseTopOutputParams) (float32, error) {
+	cmd := exec.Command(topPath, args...)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return -1, fmt.Errorf("failed to execute the top command. Error : %w", err)
+	}
+	parseParams.topOutput = string(output)
+	return parseTopOutput(parseParams)
+}
+
 // parseTopOutput parses the cpu load out of the output of the top command in osx and linux
 // The load is calculated by finding the idle percentage and then subtracting it from 100
 // some load in both the system and usage percentages  hence it's easier just to parse the idle
