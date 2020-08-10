@@ -88,3 +88,16 @@ jobs:
           GOARCH: amd64
           GOOS: windows
           EXTRA_FILES: "LICENSE"
+  docker-build-and-push:
+  - name: Build and push Docker image
+    uses: docker/build-push-action@v1.1.0
+    with:
+      # Username used to log in to a Docker registry. If not set then no login will occur
+      username: # optional
+      # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
+      password: # optional
+      # Server address of Docker registry. If not set then will default to Docker Hub
+      registry: # optional
+      # Docker repository to tag the image with
+      repository:
+      # Comma-delimited list of tags. These will be added to the registry/repository to form the image's tags
