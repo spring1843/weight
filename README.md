@@ -28,6 +28,12 @@ See all available options by running `weight cpu -h`
 
 ## Installation
 
+### Docker
+
+1- Install Docker
+2- Run `docker build -t spring1843/weight .` in the project directory
+3- Run `docker run spring1843/weight:latest cpu`
+
 ### Build from source
 
 1. Download and install [Go](https://golang.org/dl/) v1.14+
