@@ -30,9 +30,9 @@ See all available options by running `weight cpu -h`
 
 ### Docker
 
-1- Install [Docker](https://www.docker.com/get-started)
-2- Run `docker pull spring1843/weight` to download from [DockerHub](https://hub.docker.com/r/spring1843/weight) or Run `docker build -t spring1843/weight .` in the project directory
-3- Run `docker run spring1843/weight:latest cpu`
+1. Install [Docker](https://www.docker.com/get-started)
+2. Run `docker pull spring1843/weight` to download from [DockerHub](https://hub.docker.com/r/spring1843/weight) or Run `docker build -t spring1843/weight .` in the project directory
+3. Run `docker run spring1843/weight:latest cpu`
 
 ### Build from source
 
