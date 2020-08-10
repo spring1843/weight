@@ -14,6 +14,7 @@ func TestParseLinuxCPU(t *testing.T) {
 		{"%Cpu(s):  11.11 us,  22.22 sy,  0.0 ni,0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st", 100.00, false},
 		{"%Cpu(s):  11.11 us,  22.22 sy,  0.0 ni,1.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st", 98.50, false},
 		{"%Cpu(s):  11.11 us,  22.22 sy,  0.0 ni, 1.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st", 98.50, false},
+		{"%Cpu(s):  4.3 us, 13.0 sy,  0.0 ni, 82.6 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st", 98.50, false},
 	}
 
 	for i, test := range tests {

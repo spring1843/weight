@@ -1,10 +1,11 @@
 SHELL = /bin/sh
 GOFLAGS ?= $(GOFLAGS:)
 
-all: install test
-
 build:
 	@go build $(GOFLAGS) .
+
+install:
+	@go install $(GOFLAGS) .
 
 format:
 	@gofmt -l -s -w .
@@ -15,15 +16,11 @@ lint:
 optimize_imports:
 	@goimports -l -w .
 
-beautify: format optimize_imports
-
 vet:
 	@go vet ./...
 
 race:
 	@go test -race $(GOFLAGS) ./...
-
-audit: vet race lint
 
 test: install
 	@go test $(GOFLAGS) ./...
@@ -37,10 +34,19 @@ bench: install
 clean:
 	@go clean $(GOFLAGS) -i ./...
 
+docker_build:
+	@docker build -t spring1843/weight .
+
 fix:
 	@go fix $(GOFLAGS) ./...
 
-github_workflow : build beautify vet race lint fix
-
 commit: beautify audit
 	@git add -p .
+
+audit: vet race lint
+
+github_workflow : build beautify vet race lint fix
+
+all: install test
+
+beautify: format optimize_imports
