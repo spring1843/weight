@@ -1,6 +1,7 @@
 package cpu
 
 import (
+	"runtime"
 	"testing"
 )
 
@@ -9,17 +10,15 @@ func TestNewReader(t *testing.T) {
 		t.Fatal("expected error but got none")
 	}
 
-	reader, err := newReader(osLinux)
-	if err != nil {
+	if _, err := newReader(osLinux); err != nil {
 		t.Fatalf("failed getting a new reader. Error: %s", err)
 	}
 
-	reader, err = newReader(osDarwin)
-	if err != nil {
+	if _, err := newReader(osDarwin); err != nil {
 		t.Fatalf("failed getting a new reader. Error: %s", err)
 	}
 
-	if _, err := reader(); err != nil {
+	if _, err := newReader(runtime.GOOS); err != nil {
 		t.Fatalf("failed getting a new reader. Error: %s", err)
 	}
 
