@@ -7,7 +7,6 @@ on:
     branches: [master]
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -33,6 +32,11 @@ jobs:
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v2
+
+      - name: Generate Code Coverage Report
+        uses: shogo82148/actions-goveralls@v1
+        with:
+          path-to-profile: profile.cov
 
       - name: YAML Lint
         uses: actionshub/yamllint@v1.0.0
