@@ -2,6 +2,29 @@ package cpu
 
 import "testing"
 
+func TestEitherFail(t *testing.T) {
+	_, err1 := readOSXCPULoad()
+	_, err2 := readLinuxCPULoad()
+
+	if err1 != nil && err2 != nil {
+		t.Fatalf("both readers fail, at least one must not fail. Err1: %s, Err2: %s", err1, err2)
+	}
+}
+
+func TestFailOnNoTopPath(t *testing.T) {
+	oldTopPath := topPath
+	topPath = ""
+
+	if _, err := readLinuxCPULoad(); err == nil {
+		t.Fatal("Expected err but got nil ")
+	}
+
+	if _, err := readOSXCPULoad(); err == nil {
+		t.Fatal("Expected err but got nil ")
+	}
+	topPath = oldTopPath
+}
+
 func TestParseLinuxCPU(t *testing.T) {
 	var tests = []struct {
 		input  string

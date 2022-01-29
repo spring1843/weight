@@ -3,6 +3,7 @@ package cpu
 import (
 	"fmt"
 	"math"
+	"sync"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -39,12 +40,17 @@ var (
 		Short: "Puts load on CPU",
 		Long:  `Will attempt to reach a target CPU load by managing a number of CPU loaders that make it busy.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			ValidateFlags()
+			if err := ValidateFlags(); err != nil {
+				log.Fatalf("Failed running CPU loader. Error: %s", err)
+			}
 			if err := run(); err != nil {
 				log.Fatalf("Failed running CPU loader. Error: %s", err)
 			}
 		},
 	}
+
+	runBreakMutex = new(sync.RWMutex)
+	breakRun      = false
 )
 
 // NewCPUCommand returns a new CPU command
@@ -72,14 +78,15 @@ func run() error {
 }
 
 // ValidateFlags validates the runtime flags of CPU command
-func ValidateFlags() {
+func ValidateFlags() error {
 	var err error
 	if loaderSleepDuration, err = time.ParseDuration(FlagLoaderSleepDuration); err != nil {
-		log.Fatalf("Failed parsing busier-sleep-duration %q. Must be a duration value like 2ns, 2µs, 2ms, 10s, ...", FlagLoaderSleepDuration)
+		return fmt.Errorf("failed parsing busier-sleep-duration %q. Must be a duration value like 2ns, 2µs, 2ms, 10s", FlagLoaderSleepDuration)
 	}
 	if checkDelayDuration, err = time.ParseDuration(FlagCPUCheckDelayDuration); err != nil {
-		log.Fatalf("Failed parsing busier-sleep-duration %q. Must be a duration value like 2ns, 2µs, 2ms, 10s, ...", FlagCPUCheckDelayDuration)
+		return fmt.Errorf("failed parsing busier-sleep-duration %q. Must be a duration value like 2ns, 2µs, 2ms, 10s", FlagCPUCheckDelayDuration)
 	}
+	return nil
 }
 
 // watchLoad keeps watching the CPU load, performs adjusting actions and prompts the outcome
@@ -97,7 +104,15 @@ func watchLoad(cpuReader reader) error {
 		if FlagCPUCheckDelayDuration != zeroTime {
 			time.Sleep(checkDelayDuration)
 		}
+
+		runBreakMutex.RLock()
+		if breakRun {
+			runBreakMutex.RUnlock()
+			break
+		}
+		runBreakMutex.RUnlock()
 	}
+	return nil
 }
 
 // actOnCPULoad intakes the current CPU load and the target, decides which one of

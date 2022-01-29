@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/spring1843/weight/cpu"
-	"github.com/spring1843/weight/log"
+	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spring1843/weight/cpu"
 )
 
 var cmdRoot = &cobra.Command{
@@ -15,6 +15,6 @@ var cmdRoot = &cobra.Command{
 func main() {
 	cmdRoot.AddCommand(cpu.NewCPUCommand())
 	if err := cmdRoot.Execute(); err != nil {
-		log.Fatalf("Failed executing command. Error: %s", err)
+		panic(fmt.Errorf("failed executing command. Error: %s", err))
 	}
 }

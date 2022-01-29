@@ -2,7 +2,7 @@ package cpu
 
 import "testing"
 
-func TestParseOSXCPU(t *testing.T) {
+func TestReadOSXOutput(t *testing.T) {
 	var tests = []struct {
 		input  string
 		output float32
