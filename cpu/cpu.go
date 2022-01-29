@@ -43,6 +43,8 @@ var (
 		Run:   validateAndRun,
 	}
 
+	runtimeOperatingSystem = runtime.GOOS
+
 	runBreakMutex = new(sync.RWMutex)
 	breakRun      = false
 )
@@ -63,7 +65,7 @@ func validateAndRun(cmd *cobra.Command, args []string) {
 	if err := ValidateFlags(); err != nil {
 		log.Fatalf("Failed running CPU loader. Error: %s", err)
 	}
-	if err := run(runtime.GOOS); err != nil {
+	if err := run(runtimeOperatingSystem); err != nil {
 		log.Fatalf("Failed running CPU loader. Error: %s", err)
 	}
 }
@@ -109,11 +111,12 @@ func watchLoad(cpuReader reader) error {
 		}
 
 		runBreakMutex.RLock()
-		if breakRun {
-			runBreakMutex.RUnlock()
+		isbreakRun := breakRun
+		runBreakMutex.RUnlock()
+
+		if isbreakRun {
 			break
 		}
-		runBreakMutex.RUnlock()
 	}
 	return nil
 }
