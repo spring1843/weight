@@ -1,4 +1,4 @@
-FROM golang:1.14.7-buster AS builder
+FROM golang:1.17.6-buster AS builder
 
 WORKDIR /go/src/spring1843/weight/
 

@@ -1,4 +1,4 @@
-package main
+package cpu
 
 import (
 	"fmt"
@@ -14,8 +14,8 @@ const (
 )
 
 type (
-	// cpuReader can read the CPU load using the OS API
-	cpuReader func() (float32, error)
+	// reader can read the CPU load using the OS API
+	reader func() (float32, error)
 
 	// parseTopOutputParams holds the parameters passed in to parse a top command's output
 	parseTopOutputParams struct {
@@ -25,8 +25,8 @@ type (
 
 var topPath string
 
-// newCPUReader returns a CPU reader for the current OS if it is supported
-func newCPUReader() (cpuReader, error) {
+// newReader returns a CPU reader for the current OS if it is supported
+func newReader() (reader, error) {
 	var err error
 	topPath, err = loadTopPath()
 	if err != nil {

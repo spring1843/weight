@@ -1,4 +1,4 @@
-package main
+package cpu
 
 import (
 	"sync"
@@ -67,9 +67,12 @@ func addLoaders(n int) {
 	for i := 0; i < n; i++ {
 		loaders = append(loaders, newLoader())
 
-		if flagLoaderSleepDuration == zeroTime && !flagDoNotChange {
+		if FlagLoaderSleepDuration == zeroTime && !FlagDoNotChange {
 			go loaders[len(loaders)-1].startAndDoNotSleep()
 			continue
+		}
+		if FlagLoaderSleepDuration != zeroTime {
+			time.Sleep(loaderSleepDuration)
 		}
 		go loaders[len(loaders)-1].start()
 	}
