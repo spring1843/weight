@@ -9,7 +9,9 @@ import (
 )
 
 const (
-	topCmd         = "top"
+	osDarwin = "darwin"
+	osLinux  = "linux"
+
 	keyWordNewLine = "\n"
 )
 
@@ -23,20 +25,23 @@ type (
 	}
 )
 
-var topPath string
+var (
+	topPath string
+	topCmd  = "top"
+)
 
 // newReader returns a CPU reader for the current OS if it is supported
-func newReader() (reader, error) {
+func newReader(os string) (reader, error) {
 	var err error
 	topPath, err = loadTopPath()
 	if err != nil {
 		return nil, err
 	}
 
-	switch runtime.GOOS {
-	case "darwin":
+	switch os {
+	case osDarwin:
 		return readOSXCPULoad, nil
-	case "linux":
+	case osLinux:
 		return readLinuxCPULoad, nil
 	}
 	return nil, fmt.Errorf("OS %q is not currently supported. No method of finding CPU load", runtime.GOOS)
@@ -79,7 +84,7 @@ func parseTopOutput(params *parseTopOutputParams) (float32, error) {
 	cpuOutput := params.topOutput
 
 	sysIndex := strings.Index(params.topOutput, params.beforeIdle)
-	if cpuIndex == -1 {
+	if sysIndex == -1 {
 		return -1, fmt.Errorf("failed to parse CPU load. Keyword %q was not found in top command's output", params.beforeIdle)
 	}
 	params.topOutput = params.topOutput[sysIndex+len(params.beforeIdle):]
