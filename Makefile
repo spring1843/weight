@@ -25,6 +25,9 @@ race:
 test: install
 	@go test $(GOFLAGS) ./...
 
+coverage: install
+	@go test -coverprofile=profile.cov -covermode=count  $(GOFLAGS) ./...
+
 race_loop:
 	@for i in {1..100}; do make beautify audit; sleep 1;done
 
@@ -45,7 +48,7 @@ commit: beautify audit
 
 audit: vet race lint
 
-github_workflow : build beautify vet race lint fix
+github_workflow : build beautify vet race lint fix coverage
 
 all: install test
 
