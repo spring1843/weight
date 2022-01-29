@@ -6,6 +6,7 @@ import (
 )
 
 func TestLoader(t *testing.T) {
+	emptyLoaders()
 	loader := newLoader()
 	loader.stopped = false
 	go loader.start()
