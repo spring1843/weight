@@ -4,6 +4,7 @@ weight is a highly customizable multi OS command line application that puts enou
 
 [![Build Status](https://github.com/spring1843/weight/workflows/PR/badge.svg)](https://github.com/spring1843/weight/actions)
 [![Build Status](https://goreportcard.com/badge/github.com/spring1843/weight)](https://goreportcard.com/report/github.com/spring1843/weight)
+[![Coverage Status](https://coveralls.io/repos/github/spring1843/weight/badge.svg?branch=master)](https://coveralls.io/github/spring1843/weight?branch=master)
 
 ## Examples
 
