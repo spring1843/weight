@@ -3,6 +3,7 @@ package cpu
 import (
 	"fmt"
 	"math"
+	"runtime"
 	"sync"
 	"time"
 
@@ -39,14 +40,7 @@ var (
 		Use:   "cpu [options]",
 		Short: "Puts load on CPU",
 		Long:  `Will attempt to reach a target CPU load by managing a number of CPU loaders that make it busy.`,
-		Run: func(cmd *cobra.Command, args []string) {
-			if err := ValidateFlags(); err != nil {
-				log.Fatalf("Failed running CPU loader. Error: %s", err)
-			}
-			if err := run(); err != nil {
-				log.Fatalf("Failed running CPU loader. Error: %s", err)
-			}
-		},
+		Run:   validateAndRun,
 	}
 
 	runBreakMutex = new(sync.RWMutex)
@@ -65,12 +59,21 @@ func NewCPUCommand() *cobra.Command {
 	return cmd
 }
 
+func validateAndRun(cmd *cobra.Command, args []string) {
+	if err := ValidateFlags(); err != nil {
+		log.Fatalf("Failed running CPU loader. Error: %s", err)
+	}
+	if err := run(runtime.GOOS); err != nil {
+		log.Fatalf("Failed running CPU loader. Error: %s", err)
+	}
+}
+
 // run initiates the process of starting enough CPU loaders to meet the target
-func run() error {
+func run(os string) error {
 	log.Printf("Targeting %%%2.2f CPU load, With %s loader sleep duration and %d initial loader(s)", FlagTargetCPULoad, loaderSleepDuration, FlagInitialCPULoaders)
 	addLoaders(FlagInitialCPULoaders)
 
-	cpuReader, err := newReader()
+	cpuReader, err := newReader(os)
 	if err != nil {
 		return fmt.Errorf("failed getting CPU reader. Error: %w", err)
 	}

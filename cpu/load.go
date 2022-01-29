@@ -52,6 +52,13 @@ func (l *loader) start() {
 // used to avoid the extra checks
 func (l *loader) startAndDoNotSleep() {
 	for {
+		l.lock.RLock()
+		isStopped := l.stopped
+		l.lock.RUnlock()
+
+		if isStopped {
+			break
+		}
 		continue
 	}
 }
